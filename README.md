@@ -1,15 +1,21 @@
-# n8n Community MCP Server
+# n8n Community Nodes MCP Server
 
-A public MCP endpoint for the **n8n community nodes** catalog.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 
-- Website: https://n8n-community-mcp.masmoudi.dev
-- MCP endpoint: https://n8n-community-mcp.masmoudi.dev/mcp
+A focused MCP server for:
 
-## Quick setup
+- **Community n8n packages** from npm
+- **Official n8n docs and built-in nodes** from `n8n-io/n8n-docs`
 
-### Claude Desktop
+## Recommended (Hosted MCP)
 
-Add to your `claude_desktop_config.json`:
+Use the hosted endpoint by default:
+
+- `https://n8n-community-mcp.masmoudi.dev/mcp`
+
+### Quick setup (hosted)
+
+#### Claude Desktop
 
 ```json
 {
@@ -27,15 +33,13 @@ Add to your `claude_desktop_config.json`:
 }
 ```
 
-### Claude Code
+#### Claude Code
 
 ```bash
 claude mcp add --transport http n8n-community https://n8n-community-mcp.masmoudi.dev/mcp
 ```
 
-### Cursor
-
-Add to your `mcp.json`:
+#### Cursor
 
 ```json
 {
@@ -47,40 +51,65 @@ Add to your `mcp.json`:
 }
 ```
 
-### Codex
-
-Add to your `~/.codex/config.toml`:
+#### Codex
 
 ```toml
 [mcp_servers.n8n-community]
 url = "https://n8n-community-mcp.masmoudi.dev/mcp"
 ```
 
-### OpenCode
+## Tools
 
-Add to your `~/.config/opencode/opencode.json`:
+### Community npm tools
 
-```json
-{
-  "mcp": {
-    "n8n-community": {
-      "type": "remote",
-      "url": "https://n8n-community-mcp.masmoudi.dev/mcp"
-    }
-  }
-}
+- `search` → Search **community npm packages only**
+- `list` → List **community npm packages only**
+- `docs` → Get **community npm package** metadata + optional README
+
+### Official n8n docs tools
+
+- `search_official_nodes` → Search official built-in nodes from `n8n-io/n8n-docs`
+- `get_official_node_docs` → Get official node docs markdown
+- `search_n8n_docs_pages` → Search official docs pages
+- `get_n8n_docs_page` → Get full docs page markdown by path
+
+## Self-host (Optional)
+
+If you want your own instance:
+
+```bash
+npm install
+npm run build
+node dist/index.js
 ```
 
-### Antigravity
+Or with an explicit path:
 
-Add to your `~/.gemini/antigravity/mcp_config.json`:
-
-```json
-{
-  "mcpServers": {
-    "n8n-community": {
-      "serverUrl": "https://n8n-community-mcp.masmoudi.dev/mcp"
-    }
-  }
-}
+```bash
+node /path/to/n8n-community-nodes-mcp/dist/index.js
 ```
+
+### Environment variables
+
+- `MCP_HOST` (default: `127.0.0.1`)
+- `MCP_PORT` (default: `3333`)
+
+Local endpoint:
+
+- `http://127.0.0.1:3333/mcp`
+
+## Local client config (self-hosted)
+
+Use the same client snippets as above, but replace URL with:
+
+- `http://127.0.0.1:3333/mcp`
+
+## Notes
+
+- Official docs data source is GitHub (unauthenticated): `n8n-io/n8n-docs`.
+- Example path for `get_n8n_docs_page`:
+  - `docs/integrations/builtin/core-nodes/n8n-nodes-base.code.md`
+
+## License
+
+MIT — see `LICENSE`.
