@@ -7,6 +7,38 @@ A focused MCP server for:
 - **Community n8n packages** from npm
 - **Official n8n docs and built-in nodes** from `n8n-io/n8n-docs`
 
+## Why use this
+
+- Discover and search community n8n nodes directly from your AI assistant
+- Access official n8n documentation without leaving your editor
+- Context-optimized responses using TOON format to save tokens
+
+### Smart search
+
+Searches run in parallel across multiple npm tags, results are deduplicated and ranked:
+
+| Signal      | Weight |
+|-------------|--------|
+| Name match  | 40%    |
+| Tag match   | 30%    |
+| Description | 20%    |
+| Popularity  | 10%    |
+
+Filler phrases are stripped from queries — `"how to send slack messages"` and `"slack messages"` return the same results.
+
+### Token-efficient responses (TOON)
+
+All responses are encoded in [TOON (Token-Oriented Object Notation)](https://github.com/toon-format/toon) — a compact format designed for LLMs. Instead of repeating JSON keys in every object, TOON declares them once and streams rows:
+
+```
+[10]{package,name,description,version,downloadsLastWeek}:
+ n8n-nodes-slack-bolt,Slack Bolt,Advanced Slack integration,1.2.0,340
+ n8n-nodes-discord,Discord,Discord bot nodes for n8n,0.9.1,210
+ ...
+```
+
+**30–60% fewer tokens** per response — more room in context, lower cost per call.
+
 ## Recommended (Hosted MCP)
 
 Use the hosted endpoint by default:
